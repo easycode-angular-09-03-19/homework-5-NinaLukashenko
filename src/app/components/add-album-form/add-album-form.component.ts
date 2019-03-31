@@ -10,6 +10,7 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./add-album-form.component.css"]
 })
 export class AddAlbumFormComponent implements OnInit {
+  formTitle = "Add new album";
   album = {
     title: ""
   };
@@ -31,6 +32,7 @@ export class AddAlbumFormComponent implements OnInit {
       (data: Album) => {
         if (data.id) {
           this.album.title = data.title;
+          this.formTitle = `Editing the album with id: ${data.id}`;
 
           this.editedAlbum = {
             userId: data.userId,

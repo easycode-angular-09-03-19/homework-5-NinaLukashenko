@@ -15,7 +15,12 @@ export class AlbumItemComponent implements OnInit {
     public albumEvents: AlbumsEventsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    //change data for component when here about addeting:
+    // this.albumEvents.albumEditEventObservableSubject.subscribe(
+    //   (data: Album) => {}
+    // );
+  }
 
   onEditClick() {
     //put data from album card to form
