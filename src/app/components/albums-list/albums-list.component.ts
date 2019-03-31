@@ -20,7 +20,6 @@ export class AlbumsListComponent implements OnInit {
     this.albumService.getAlbums().subscribe(
       (data: Album[]) => {
         this.albums = data;
-        console.log(data);
       },
       err => {
         console.log(err);
@@ -31,10 +30,36 @@ export class AlbumsListComponent implements OnInit {
     );
 
     this.albumEvents.albumAddEventObservableSubject.subscribe((data: Album) => {
-      console.log("Albums-list component", data);
       if (data.title) {
         this.albums.unshift(data);
       }
     });
+
+    //subscribe to edit event
+    this.albumEvents.albumEditEventObservableSubject.subscribe(
+      (data: Album) => {
+        console.log("Albums-list component is ready to edit", data);
+        if (data.id) {
+          for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].id === data.id) {
+              this.albums[i].title = data.title;
+            }
+          }
+        }
+      }
+    );
+
+    this.albumEvents.albumDeleteEventObservableSubject.subscribe(
+      (data: Album) => {
+        console.log("Albums-list component", data);
+        if (data.id) {
+          for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].id === data.id) {
+              this.albums.splice(i, 1);
+            }
+          }
+        }
+      }
+    );
   }
 }

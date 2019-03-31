@@ -19,7 +19,11 @@ export class AlbumsService {
     return this.http.post(`${this.apiUrl}/albums`, value);
   }
 
-  deleteAlbum(id: number) {
-    return this.http.delete(`${this.apiUrl}/albums/${id}`);
+  deleteAlbum(value: Album) {
+    return this.http.delete(`${this.apiUrl}/albums/${value.id}`);
+  }
+
+  editAlbum(value: Album) {
+    return this.http.put(`${this.apiUrl}/albums/${value.id}`, value);
   }
 }

@@ -2,7 +2,9 @@
   <div class="card-body">
     <h5 class="card-title">User id: {{ item.userId }}</h5>
     <p class="card-text">Title: {{ item.title }}</p>
-    <button class="btn btn-primary">Edit</button>
-    <button class="btn btn-danger ml-2">Delete</button>
+    <button class="btn btn-primary" (click)="onEditClick()">Edit</button>
+    <button class="btn btn-danger ml-2" (click)="onDeleteClick()">
+      Delete
+    </button>
   </div>
 </div>
