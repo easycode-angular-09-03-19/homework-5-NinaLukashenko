@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Album } from "../../interfaces/album";
-import { AlbumsEventsService } from "../../services/albums-events.service";
+import { AlertMessageService } from "../../services/alert-message.service";
 
 @Component({
   selector: "app-alert-message",
@@ -8,25 +7,19 @@ import { AlbumsEventsService } from "../../services/albums-events.service";
   styleUrls: ["./alert-message.component.css"]
 })
 export class AlertMessageComponent implements OnInit {
-  alertMessage = {
+  message = {
     showAlertMessage: false,
     text: ""
   };
 
-  constructor(public albumEvents: AlbumsEventsService) {}
+  constructor(public alertMessage: AlertMessageService) {}
 
   ngOnInit() {
-    this.albumEvents.albumAddEventObservableSubject.subscribe((data: Album) => {
-      if (data.title) {
-        this.alertMessage.showAlertMessage = true;
-        this.alertMessage.text = "added";
-      }
-    });
-    this.albumEvents.albumDeleteEventObservableSubject.subscribe(
-      (data: Album) => {
-        if (data.id) {
-          this.alertMessage.showAlertMessage = true;
-          this.alertMessage.text = "deleted";
+    this.alertMessage.alertMessageObservableSubject.subscribe(
+      (text: string) => {
+        if (text) {
+          this.message.text = text;
+          this.message.showAlertMessage = true;
         }
       }
     );

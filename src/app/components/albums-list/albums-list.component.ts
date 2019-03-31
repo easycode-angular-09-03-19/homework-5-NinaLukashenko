@@ -35,6 +35,18 @@ export class AlbumsListComponent implements OnInit {
       }
     });
 
+    this.albumEvents.albumCancelEventObservableSubject.subscribe(
+      (data: Album) => {
+        if (data.id) {
+          for (let i = 0; i < this.albums.length; i++) {
+            if (this.albums[i].id === data.id) {
+              this.albums[i].statusIsEditing = false;
+            }
+          }
+        }
+      }
+    );
+
     //subscribe to edit event
     this.albumEvents.albumEditEventObservableSubject.subscribe(
       (data: Album) => {
