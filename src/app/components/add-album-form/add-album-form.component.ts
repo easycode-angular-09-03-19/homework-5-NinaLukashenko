@@ -33,7 +33,6 @@ export class AddAlbumFormComponent implements OnInit {
     this.albumEvents.albumEditEventObservableSubject.subscribe(
       (data: Album) => {
         if (data.id) {
-          console.log("Hello ngOnInit");
           this.album.title = data.title;
           this.formTitle = `Editing the album with id: ${data.id}`;
 
@@ -55,17 +54,20 @@ export class AddAlbumFormComponent implements OnInit {
   }
 
   onFormSubmit() {
-    //this.formTitle = "Add new album";
-    if (this.editedAlbum.title !== "") {
+    if (this.editedAlbum.title !== "" && this.formTitle !== "Add a new album") {
       this.editedAlbum.title = this.album.title;
       this.albumService.editAlbum(this.editedAlbum).subscribe((data: Album) => {
-        console.log(data);
         this.albumEvents.emitEditAlbum(data);
-        this.form.resetForm();
-        //console.log("Hello from onFormSubmit");
-        this.formTitle = "Add new album";
         this.albumEvents.emitCancelAlbum(data);
-        this.alertMessage.emitAlertAdd("The album was edited!");
+        this.alertMessage.emitAlertAdd({
+          text: "The album was edited!",
+          class: "alert-success"
+        });
+        this.editedAlbum = {
+          userId: 0,
+          id: 0,
+          title: ""
+        };
       });
       return;
     }
@@ -76,10 +78,13 @@ export class AddAlbumFormComponent implements OnInit {
     };
 
     this.albumService.addNewAlbum(newAlbum).subscribe((data: Album) => {
-      console.log("Get data FormComponent");
       this.formTitle = "Add new album";
       this.albumEvents.emitAddNewAlbum(data);
       this.form.resetForm();
+      this.alertMessage.emitAlertAdd({
+        text: "The album was added!",
+        class: "alert-primary"
+      });
     });
   }
 }

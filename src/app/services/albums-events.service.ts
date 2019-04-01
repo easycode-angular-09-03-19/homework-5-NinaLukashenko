@@ -25,17 +25,14 @@ export class AlbumsEventsService {
   }
 
   emitDeleteAlbum(value: Album) {
-    console.log("Albums-events.service", value);
     this.albumDeleteEventSource.next(value);
   }
 
   emitEditAlbum(value: Album) {
-    console.log("Albums-events.service", value);
     this.albumEditEventSource.next(value);
   }
 
   emitCancelAlbum(value: Album) {
-    console.log("Albums-events.service - cancel", value);
     this.albumCancelEventSource.next(value);
   }
 }

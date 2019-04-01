@@ -1,6 +1,3 @@
-<div
-  class="alert alert-info mt-5 mx-auto w-50"
-  *ngIf="message.showAlertMessage"
->
+<div [ngClass]="['alert', message.class]" *ngIf="message.showAlertMessage">
   {{ message.text }}
 </div>

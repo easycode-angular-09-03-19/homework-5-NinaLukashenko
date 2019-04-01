@@ -41,6 +41,7 @@ export class AlbumsListComponent implements OnInit {
           for (let i = 0; i < this.albums.length; i++) {
             if (this.albums[i].id === data.id) {
               this.albums[i].statusIsEditing = false;
+              return;
             }
           }
         }
@@ -50,11 +51,12 @@ export class AlbumsListComponent implements OnInit {
     //subscribe to edit event
     this.albumEvents.albumEditEventObservableSubject.subscribe(
       (data: Album) => {
-        console.log("Albums-list component is ready to edit", data);
         if (data.id) {
+          data.statusIsEditing = true;
           for (let i = 0; i < this.albums.length; i++) {
             if (this.albums[i].id === data.id) {
               this.albums[i].title = data.title;
+              return;
             }
           }
         }
@@ -63,11 +65,11 @@ export class AlbumsListComponent implements OnInit {
 
     this.albumEvents.albumDeleteEventObservableSubject.subscribe(
       (data: Album) => {
-        console.log("Albums-list component", data);
         if (data.id) {
           for (let i = 0; i < this.albums.length; i++) {
             if (this.albums[i].id === data.id) {
               this.albums.splice(i, 1);
+              return;
             }
           }
         }
